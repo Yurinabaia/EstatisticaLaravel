@@ -1,0 +1,102 @@
+    .body, html {
+        margin: 0;
+        height: 100%;
+        font-family:'Poppins';
+        scroll-behavior: smooth;
+        background-color: #f7f7f7;
+    }
+
+/* CONTEÚDO DE AVISO */ 
+
+    .aviso {
+        position: fixed;
+        display: block; 
+        top: 0px;
+        width: 100%;
+        left:0;
+        right:0;
+        text-align: center;
+        padding: 1rem;
+        background-color: #5f3473  ;
+        color: white ;
+    }
+
+    .avisobotao {
+        font-family:'Poppins';
+        color: #5f3473 ;
+        background-color: white ;
+        padding: .4rem .8rem;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+    .avisobotao:hover {
+        color: #907a9a  ;
+        background-color: #f7f7f7;
+    }
+
+
+    /* MENU */
+    .navbar {
+        background-color: white ;
+        font-family:'Poppins';
+        padding:  15px 10px;
+        text-align: center;
+        position: fixed;
+        display: block; 
+        top: 50px;;
+        width: 100%;
+        left:0;
+        right:0;
+        box-shadow: 0px 10px 20px -20px #5f3473 ;
+    }
+
+    .navbar a {
+        font-size: 18px;
+        color:#5f3473 ;
+        padding: 15px 20px;
+        text-decoration: none;
+    }
+
+    .navbar a:hover {
+        color: #907a9a;
+        text-decoration: underline #907a9a;
+    }
+
+    .navlogo{
+        margin-right: 40px;
+        height: 25px;
+        left: 20px;
+    }
+
+    /* CONTÉUDO */
+
+    .conteudo{
+      padding: 10%;
+    }
+    
+    .tabela{
+        border-spacing: 0px;
+        border: 1px solid #5f3473;
+        margin-left: auto;
+        margin-right:auto;
+    }
+
+    /* BOTAO */
+    .botao {
+        font-family:'Poppins';
+        color: white ;
+        background-color:#907a9a;
+        padding: .4rem .8rem;
+        border-radius: 200px;
+        text-decoration: none;
+        font-size: 16px;
+        float: right;
+        margin-right: 50px;
+    }
+    
+    .botao:hover {
+        color: #907a9a  ;
+        background-color: #5f3473;
+    }

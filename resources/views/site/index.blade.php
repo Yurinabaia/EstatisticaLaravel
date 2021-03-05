@@ -21,6 +21,9 @@
         <a href="{{ route('media') }}">Media</a>
         <a href="{{ route('mediana') }}">Mediana</a>
         <a href="{{ route('descrepancia') }}">Descrepancia</a>
+        <a href="{{ route('score') }}">Score</a>
+        <a href="{{ route('percentil') }}">Percentil</a>
+
     </div >
 
 </html>

@@ -19,3 +19,5 @@ Route::get('/media', 'App\Http\Controllers\Tabela1Controller@tabela1')->name('me
 Route::post('/media', 'App\Http\Controllers\Tabela1Controller@tabela1')->name('media');
 Route::get('/mediana', 'App\Http\Controllers\Tabela2Controller@mediana')->name('mediana');
 Route::get('/descrepancia', 'App\Http\Controllers\Tabela3Controller@tela3')->name('descrepancia');
+Route::get('/score', 'App\Http\Controllers\ScoreController@score')->name('score');
+Route::get('/percentil', 'App\Http\Controllers\PercentilController@percentual')->name('percentil');

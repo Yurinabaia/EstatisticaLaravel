@@ -22,6 +22,9 @@
         <a href="{{ route('media') }}">Media</a>
         <a href="{{ route('mediana') }}">Mediana</a>
         <a href="{{ route('descrepancia') }}">Descrepancia</a>
+        <a href="{{ route('score') }}">Score</a>
+        <a href="{{ route('percentil') }}">Percentil</a>
+
     </div >
 
 
@@ -65,7 +68,8 @@
         $valorTotal =  $valorTotal/$totalFrequencia;
         echo $valorTotal;
     }
-    elseif (!empty($_GET['tabela'])) {
+    elseif (
+        !empty($_GET['tabela'])) {
             $tamanhoTabela = $_GET['tabela'];
             echo "
             <table border='1'>
@@ -121,7 +125,7 @@
     }
     ?> 
     
-    <br> <a href="index.php" class="botao"><b>VOLTAR</b></a>
+        <br> <a href="{{ route('index') }}" class="botao"><b>VOLTAR</b></a>
     </div>
 
 

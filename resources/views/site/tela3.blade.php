@@ -21,6 +21,9 @@
         <a href="{{ route('media') }}">Media</a>
         <a href="{{ route('mediana') }}">Mediana</a>
         <a href="{{ route('descrepancia') }}">Descrepancia</a>
+        <a href="{{ route('score') }}">Score</a>
+        <a href="{{ route('percentil') }}">Percentil</a>
+
     </div >
 
     <div class="conteudo">
@@ -109,7 +112,7 @@
 }
         ?>
 
-        <br> <a href="index.php" class="botao"><b>VOLTAR</b></a>
+        <br> <a href="{{ route('index') }}" class="botao"><b>VOLTAR</b></a>
     </div>
 
 

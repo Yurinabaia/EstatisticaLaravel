@@ -28,22 +28,21 @@
 
     <div class="conteudo">
         <div>
-            <form action="{{ route('descrepancia') }}" method="GET">
+            <form action="{{ route('regraS') }}" method="GET">
                 <input type="text" placeholder="Pesquisar" name="tabela">
                 <input type="submit">
             </form>
         </div>
-        <form action="{{ route('descrepancia') }}" method='GET'>
+        <form action="{{ route('regraS') }}" method='GET'>
 
         <?php
-    if(isset($_GET['tempo0']))  
+ if(isset($_GET['tempo0'])) 
     {
-        $media = 0;
+         $array = array();
         $i = 0;
-        $descrpt = 0;
         while (true) {
            if (isset($_GET['tempo'.$i])){
-                $media = $media + $_GET['tempo'.$i];
+                $array[] = $_GET['tempo'.$i];
            }
            else 
            {
@@ -51,65 +50,61 @@
            }
            $i++;
         }
-        $media = $media/$i;
-        $i = 0;
-        $discrepancia = 0;
-        while (true) {
-           if (isset($_GET['tempo'.$i])){
-            
-            $descrpt = $_GET['tempo'.$i]  - $media;
-            $descrpt  = pow($descrpt,2);
-            $discrepancia +=   $descrpt;
-           }
-           else 
-           {
-               break;
-           }
-           $i++;
-        }   
-
-        $discrepancia = $discrepancia/($i - 1);
-        $discrepancia = sqrt($discrepancia);
-        echo "<h3>Valor de discrepancia = ".number_format($discrepancia,2)."</h3>";
-
-        echo("<br> <br><br><br><br>");
-        $coeficienteVariacao = ($discrepancia/$media)*100;
-        echo("<h3> valor de Coeficiente de variação = ".number_format($coeficienteVariacao,2). "</h3>");
-
+        $result = array_unique($array);
+        $amplitude = end($result) - $result[0];
+        $quantidadDeLinhas = 1 + 3.322 *log(conut($array));
+        $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
         
+        echo ($amplitudeIntervalos);
+
     }
-        elseif (!empty($_GET['tabela'])) {
+    elseif (!empty($_GET['tabela'])) {
             $tamanhoTabela = $_GET['tabela'];
             echo "
             <table border='1'>
                 <tr>
                     <td>Valores</td>
                 </tr>";
-                for ($i = 0; $i < $tamanhoTabela; $i++) { echo "<tr>
+            for ($i = 0; $i < $tamanhoTabela; $i++) { echo "<tr>
         <td><input type='text' name='tempo$i'></td>
-    </tr>" ; } echo "</table> 
-    <input type='submit'>
-    </form>" ;
-}else {
-    echo(
-    "  
-    <div>
-        <p class='h5'>
-        Abaixo mostra como achar a discrepancia dos valores
-        O X é a media.
-        O S é a discrepancia;
+    </tr>" ; 
+    } 
+    echo "</table> <input type='submit'></form>" ;
+    } else 
+    {
 
-        <img src='img/teste.png'>
+        
+        echo( "  
+    <p class='h5'>
+        <p>USAR AS FORMULAS </p>
         <br>
-        Abaixo mostra como achar o COEFICIENTE DE VARIAÇÃO:
-
-        <img src='img/teste2.png'>
-
+        <p> MAX = MAIOR AMOSTRA </p>
+        <br>
+        <p> MIN = MENOR AMOSTRA </p>
+        <br>
+        <p> Calcula da amplituda A = máx - min </p>
+        <br>
+        <p> Quantidade de linhas da tabela = k= 1+3,322.log n -> k=8,37 (=== SENDO QUE N É A QUANTIDADE DE AMOSTRA QUE EU TENHO)
+INTERVALO AK = A/K </p>
+        <br>
+        <p> O NUMERO DE TABELA DE LINHAS DA MINHA TABELA É O K QUE EU TENHO. </p>
         <br>
 
-    </div>"
-);
-}
+        <p> O INTERVALO VAI SER A QUANTIDADE DE VALORES QUE VOU SOMANDO.</p>
+
+        <br>
+        <p> NA CRIACAO DA TABELA O VALOR DA MINHA FREQUENCIA É PEGAR MINHA AMOSTRA E VER QUANTOS ITENS QUE EU ANDO DE UMA ATÉ A OUTRA
+COM A AMPLITUDE
+TIPO TABELA </p>
+        <br>
+        <br>
+        <img src='img/regraS.png'>
+
+
+        <br>
+     ");
+    }
+
         ?>
 
         <br> <a href="{{ route('index') }}" class="botao"><b>VOLTAR</b></a>

@@ -21,3 +21,4 @@ Route::get('/mediana', 'App\Http\Controllers\Tabela2Controller@mediana')->name('
 Route::get('/descrepancia', 'App\Http\Controllers\Tabela3Controller@tela3')->name('descrepancia');
 Route::get('/score', 'App\Http\Controllers\ScoreController@score')->name('score');
 Route::get('/percentil', 'App\Http\Controllers\PercentilController@percentual')->name('percentil');
+Route::get('/tabela', 'App\Http\Controllers\TabelaController@tabela')->name('regraS');

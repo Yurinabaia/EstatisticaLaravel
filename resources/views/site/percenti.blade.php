@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/estilotela1.css">
-    <meta name="Autora" content="Amanda Oliveira Nascimento">
     <title>Framework Padawans</title>
     <link rel="icon" type="img/png" href="img/1.png" />
 </head>
@@ -23,6 +22,7 @@
         <a href="{{ route('descrepancia') }}">Descrepancia</a>
         <a href="{{ route('score') }}">Score</a>
         <a href="{{ route('percentil') }}">Percentil</a>
+        <a href="{{ route('regraS') }}">Regra De Sturges</a>
 
     </div >
 
@@ -43,6 +43,8 @@
          $quantidaAmostra = $_GET['nAmostra'];
 
         $l = ($numeroPercentir / 100)*$quantidaAmostra;
+
+        if($l % 2 == 0)
         echo number_format($l,2);
 
      }

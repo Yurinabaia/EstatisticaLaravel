@@ -50,13 +50,40 @@
            }
            $i++;
         }
+        sort($array);
         $result = array_unique($array);
         $amplitude = end($result) - $result[0];
-        $quantidadDeLinhas = 1 + 3.322 *log(conut($array));
+        //echo($amplitude."<br>");
+        $quantidadDeLinhas = floor(1 + 3.322 *log10(count($array)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
-        
-        echo ($amplitudeIntervalos);
-
+       
+        $proximoValor = 0;
+        $frequencia = array();
+        //echo (number_format($amplitudeIntervalos, 1, ',', ' '));
+        //print_r($array);
+        $a = 0;
+        $result = $array[0];
+        $aux = 0;
+        while ($a < $quantidadDeLinhas) {
+            $aux = $result;
+            $result += (number_format($amplitudeIntervalos, 1, '.', ' '));
+            $frequencia[] = $result;
+            $a++;
+        }
+        //print_r($frequencia);
+        $contador = 0;
+        $valoreFrequencia = 0;
+        $feq = array();
+        $a = 0;
+        foreach (range(4.7, 15.5, 0.1) as $value) {
+           if((in_array($value, $array)))
+           {
+                $valoreFrequencia++;
+           }
+        }
+        //print_r($x);
+        //print_r($feq);
+    
     }
     elseif (!empty($_GET['tabela'])) {
             $tamanhoTabela = $_GET['tabela'];
@@ -107,6 +134,7 @@ TIPO TABELA </p>
 
         ?>
 
+        
         <br> <a href="{{ route('index') }}" class="botao"><b>VOLTAR</b></a>
     </div>
 

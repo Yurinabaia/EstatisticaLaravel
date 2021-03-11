@@ -53,36 +53,48 @@
         sort($array);
         $result = array_unique($array);
         $amplitude = end($result) - $result[0];
-        //echo($amplitude."<br>");
         $quantidadDeLinhas = floor(1 + 3.322 *log10(count($array)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
-       
+       // echo($amplitudeIntervalos."<br>");
+
         $proximoValor = 0;
         $frequencia = array();
         //echo (number_format($amplitudeIntervalos, 1, ',', ' '));
-        //print_r($array);
+       // print_r($array);
+
         $a = 0;
         $result = $array[0];
         $aux = 0;
+        $frequencia[] = $result;
         while ($a < $quantidadDeLinhas) {
             $aux = $result;
             $result += (number_format($amplitudeIntervalos, 1, '.', ' '));
             $frequencia[] = $result;
             $a++;
         }
-        //print_r($frequencia);
+
+    // print_r($frequencia);
         $contador = 0;
         $valoreFrequencia = 0;
         $feq = array();
-        $a = 0;
-        foreach (range(4.7, 15.5, 0.1) as $value) {
-           if((in_array($value, $array)))
-           {
-                $valoreFrequencia++;
-           }
+        $i = 0;
+        
+        
+        for($i = 0; $i < count($array); $i++) 
+        {   
+                if($array[$i] >= 4.7 && $array[$i] <  6.5 {
+                    $valoreFrequencia++;
+                }
+                else 
+                {   echo("<br>".$valoreFrequencia);
+                    $contador++;
+                    $valoreFrequencia = 1;
+                }
         }
-        //print_r($x);
-        //print_r($feq);
+
+
+    
+  // print_r($feq);
     
     }
     elseif (!empty($_GET['tabela'])) {

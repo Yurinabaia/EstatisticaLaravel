@@ -38,11 +38,11 @@
         <?php
  if(isset($_GET['tempo0'])) 
     {
-         $array = array();
+         $populacao = array();
         $i = 0;
         while (true) {
            if (isset($_GET['tempo'.$i])){
-                $array[] = $_GET['tempo'.$i];
+                $populacao[] = $_GET['tempo'.$i];
            }
            else 
            {
@@ -50,20 +50,21 @@
            }
            $i++;
         }
-        sort($array);
-        $result = array_unique($array);
+        sort($populacao);
+        $result = array_unique($populacao);
         $amplitude = end($result) - $result[0];
         //echo($amplitude."<br>");
-        $quantidadDeLinhas = floor(1 + 3.322 *log10(count($array)));
+        $quantidadDeLinhas = floor(1 + 3.322 *log10(count($populacao)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
-       
+        //echo $amplitudeIntervalos;
         $proximoValor = 0;
         $frequencia = array();
         //echo (number_format($amplitudeIntervalos, 1, ',', ' '));
-        //print_r($array);
+        //print_r($populacao);
         $a = 0;
-        $result = $array[0];
+        $result = $populacao[0];
         $aux = 0;
+        $frequencia[] = $result;
         while ($a < $quantidadDeLinhas) {
             $aux = $result;
             $result += (number_format($amplitudeIntervalos, 1, '.', ' '));
@@ -73,16 +74,74 @@
         //print_r($frequencia);
         $contador = 0;
         $valoreFrequencia = 0;
-        $feq = array();
         $a = 0;
-        foreach (range(4.7, 15.5, 0.1) as $value) {
-           if((in_array($value, $array)))
-           {
-                $valoreFrequencia++;
-           }
+        $feq = array();
+        for ($j=0; $j < count($frequencia) -1; $j++) {
+            for ($i= $a; $i < count($populacao); $i++) { 
+                if($populacao[$i] >=$frequencia[$j] && $populacao[$i] < $frequencia[$j+1]) {
+                    $valoreFrequencia++;
+                    $a++;
+                }
+            }
+            $feq[] = $valoreFrequencia;
+            $valoreFrequencia = 0; 
         }
-        //print_r($x);
         //print_r($feq);
+        $totalFeq = array_sum($feq);
+        $porcentagem = array();
+        $porcentagemAcumulada = array();
+        $frequenceAcumulada = array();
+        for ($i=0; $i < count($feq); $i++) { 
+            $porcentagem[] = ($feq[$i]/$totalFeq)*100;
+            if($i == 0)
+            {
+                $porcentagemAcumulada[] = $porcentagem[0];
+                $frequenceAcumulada[] = $feq[0]; 
+            }
+            else 
+            {
+                $porcentagemAcumulada[] = $porcentagem[$i] +  $porcentagemAcumulada[$i-1];
+                $frequenceAcumulada[] = $feq[$i] + $frequenceAcumulada[$i-1]; 
+            }
+
+        }
+        echo (" 
+                <table border='1'>
+                    <tr>
+                        <td> Tempo </td>
+                        <td> Frequencencia </td>
+                        <td> Porcentagem </td>
+                        <td> Frequencia Acumulada </td>
+                        <td> Porcentagem Acumulada </td>
+                    </tr>");
+        
+                    for ($i=0; $i < count($frequencia)-1; $i++) { 
+                        echo ("
+                        <tr>
+                            <td> $frequencia[$i] |--- ". $frequencia[$i +1]."  </td>
+                            <td> $feq[$i]</td>
+                            <td> $porcentagem[$i]</td>
+                            <td> $frequenceAcumulada[$i]</td>
+                            <td> $porcentagemAcumulada[$i]</td>
+                        <tr>
+                        ");
+                    }
+                    echo ("
+                        <tr>
+                            <td>Total </td>
+                            <td>$totalFeq </td>
+                            <td> 100 </td>
+                            <td> --- </td>
+                            <td> --- </td>
+                        <tr>
+                    </table>");
+
+
+                   
+
+        
+        
+        
     
     }
     elseif (!empty($_GET['tabela'])) {

@@ -29,31 +29,35 @@
     <div class="conteudo">
         <div>
             <form action="{{ route('regraS') }}" method="GET">
-                <input type="text" placeholder="Pesquisar" name="tabela">
+                <input type="file" placeholder="Pesquisar" name="tabela">
                 <input type="submit">
             </form>
         </div>
         <form action="{{ route('regraS') }}" method='GET'>
 
-        <?php
- if(isset($_GET['tempo0'])) 
+<?php
+
+ if(!empty($_GET['tabela'])) 
     {
-         $populacao = array();
-        $i = 0;
-        while (true) {
-           if (isset($_GET['tempo'.$i])){
-                $populacao[] = $_GET['tempo'.$i];
-           }
-           else 
-           {
-               break;
-           }
-           $i++;
+       
+        $populacao = array();
+        $arquivo = fopen('teste.txt','r');
+        if ($arquivo == false) die('Não foi possível abrir o arquivo.');
+        while(true) {
+            $linha = fgets($arquivo);
+            if ($linha==null) break;
+            //echo $linha;
+            $split = explode(" ",$linha);
+            foreach ($split as $key => $value) {
+                $populacao[] = (double)$value;
+            }
         }
+        fclose($arquivo);
         sort($populacao);
-        $result = array_unique($populacao);
-        $amplitude = end($result) - $result[0];
+        
+        $amplitude = end($populacao) - $populacao[0];
         //echo($amplitude."<br>");
+        
         $quantidadDeLinhas = floor(1 + 3.322 *log10(count($populacao)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
         //echo $amplitudeIntervalos;
@@ -134,29 +138,11 @@
                             <td> --- </td>
                             <td> --- </td>
                         <tr>
-                    </table>");
-
-
+                    </table>");   
                    
-
-        
-        
-        
-    
+                   
     }
-    elseif (!empty($_GET['tabela'])) {
-            $tamanhoTabela = $_GET['tabela'];
-            echo "
-            <table border='1'>
-                <tr>
-                    <td>Valores</td>
-                </tr>";
-            for ($i = 0; $i < $tamanhoTabela; $i++) { echo "<tr>
-        <td><input type='text' name='tempo$i'></td>
-    </tr>" ; 
-    } 
-    echo "</table> <input type='submit'></form>" ;
-    } else 
+     else 
     {
 
         

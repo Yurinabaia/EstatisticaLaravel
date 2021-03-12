@@ -49,7 +49,7 @@
             //echo $linha;
             $split = explode(" ",$linha);
             foreach ($split as $key => $value) {
-                $populacao[] = (double)$value;
+                $populacao[] = (double) str_replace(",",".",$value);
             }
         }
         fclose($arquivo);
@@ -57,22 +57,22 @@
         //print_r($populacao);
         
         $amplitude = end($populacao) - $populacao[0];
-        echo($amplitude."<br>");
+        //echo($amplitude."<br>");
         
         $quantidadDeLinhas = floor(1 + 3.322 *log10(count($populacao)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
-        echo "<br>".$quantidadDeLinhas."<br>";
+        //echo "<br>".$quantidadDeLinhas."<br>";
         $proximoValor = 0;
         $tempo = array();
-        echo (number_format($amplitudeIntervalos, 0, ',', ' '));
-        print_r($populacao);
+        //echo (number_format($amplitudeIntervalos, 0, ',', ' '));
+        //print_r($populacao);
         $a = 0;
         $result = $populacao[0];
         $aux = 0;
         $tempo[] = $result;
         while ($a < $quantidadDeLinhas) {
             $aux = $result;
-            $result += (number_format($amplitudeIntervalos, 0, '.', ' '));
+            $result += (number_format($amplitudeIntervalos, 1, '.', ' '));
             $tempo[] = $result;
             $a++;
         }
@@ -145,9 +145,9 @@
                         <tr>
                             <td> $tempo[$i] |--- ". $tempo[$i +1]."  </td>
                             <td> $feq[$i]</td>
-                            <td> $porcentagem[$i]</td>
+                            <td> $porcentagem[$i]%</td>
                             <td> $frequenceAcumulada[$i]</td>
-                            <td> $porcentagemAcumulada[$i]</td>
+                            <td> $porcentagemAcumulada[$i]%</td>
                         <tr>
                         ");
                     }

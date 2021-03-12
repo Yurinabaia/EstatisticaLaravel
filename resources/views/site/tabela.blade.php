@@ -54,47 +54,68 @@
         }
         fclose($arquivo);
         sort($populacao);
+        //print_r($populacao);
         
         $amplitude = end($populacao) - $populacao[0];
-        //echo($amplitude."<br>");
+        echo($amplitude."<br>");
         
         $quantidadDeLinhas = floor(1 + 3.322 *log10(count($populacao)));
         $amplitudeIntervalos  = $amplitude/$quantidadDeLinhas;
-        //echo $amplitudeIntervalos;
+        echo "<br>".$quantidadDeLinhas."<br>";
         $proximoValor = 0;
-        $frequencia = array();
-        //echo (number_format($amplitudeIntervalos, 1, ',', ' '));
-        //print_r($populacao);
+        $tempo = array();
+        echo (number_format($amplitudeIntervalos, 0, ',', ' '));
+        print_r($populacao);
         $a = 0;
         $result = $populacao[0];
         $aux = 0;
-        $frequencia[] = $result;
+        $tempo[] = $result;
         while ($a < $quantidadDeLinhas) {
             $aux = $result;
-            $result += (number_format($amplitudeIntervalos, 1, '.', ' '));
-            $frequencia[] = $result;
+            $result += (number_format($amplitudeIntervalos, 0, '.', ' '));
+            $tempo[] = $result;
             $a++;
         }
-        //print_r($frequencia);
+        //print_r($tempo);
+        if(end($tempo) < end($populacao)) {
+            $tempo[count($tempo) -1] = end($populacao);
+        }
+
         $contador = 0;
         $valoreFrequencia = 0;
         $a = 0;
         $feq = array();
-        for ($j=0; $j < count($frequencia) -1; $j++) {
+        
+        for ($j=0; $j < count($tempo) -1; $j++) {
             for ($i= $a; $i < count($populacao); $i++) { 
-                if($populacao[$i] >=$frequencia[$j] && $populacao[$i] < $frequencia[$j+1]) {
+                if($populacao[$i] >=$tempo[$j] && $populacao[$i] < $tempo[$j+1]) {
                     $valoreFrequencia++;
                     $a++;
+                }
+                if($j == count($tempo)- 2 &&  $populacao[$i] >= $tempo[$j+1]){
+                    $valoreFrequencia++;
                 }
             }
             $feq[] = $valoreFrequencia;
             $valoreFrequencia = 0; 
         }
-        //print_r($feq);
+       /*
+        if(end($tempo) < end($populacao)) {
+            $tempo[count($tempo) -1] = end($populacao);
+            //$x = end($populacao) - (array_sum($feq) - end($tempo));
+           
+            echo("<br>aaa".$x."<br>");
+        }*/
+        
+        //print_r($tempo);
+
+
         $totalFeq = array_sum($feq);
+        //echo $totalFeq;
         $porcentagem = array();
         $porcentagemAcumulada = array();
         $frequenceAcumulada = array();
+        
         for ($i=0; $i < count($feq); $i++) { 
             $porcentagem[] = ($feq[$i]/$totalFeq)*100;
             if($i == 0)
@@ -107,8 +128,8 @@
                 $porcentagemAcumulada[] = $porcentagem[$i] +  $porcentagemAcumulada[$i-1];
                 $frequenceAcumulada[] = $feq[$i] + $frequenceAcumulada[$i-1]; 
             }
-
         }
+        
         echo (" 
                 <table border='1'>
                     <tr>
@@ -119,10 +140,10 @@
                         <td> Porcentagem Acumulada </td>
                     </tr>");
         
-                    for ($i=0; $i < count($frequencia)-1; $i++) { 
+                    for ($i=0; $i < count($tempo)-1; $i++) { 
                         echo ("
                         <tr>
-                            <td> $frequencia[$i] |--- ". $frequencia[$i +1]."  </td>
+                            <td> $tempo[$i] |--- ". $tempo[$i +1]."  </td>
                             <td> $feq[$i]</td>
                             <td> $porcentagem[$i]</td>
                             <td> $frequenceAcumulada[$i]</td>
